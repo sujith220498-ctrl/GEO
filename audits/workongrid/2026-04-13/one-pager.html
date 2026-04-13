@@ -3,53 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WorkOnGrid — Search & AI Visibility Assessment</title>
+  <title>WorkOnGrid — Search & AI Visibility Data</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --cream:   #F5F2EB;
-      --paper:   #FDFAF4;
-      --ink:     #1A1A1A;
-      --mid:     #4A4A4A;
-      --muted:   #888888;
-      --rule:    #D8D3C8;
-      --red:     #C0392B;
-      --green:   #1E6B45;
-      --border:  #222222;
+      --cream:  #F4F1EA;
+      --paper:  #FDFAF4;
+      --ink:    #141414;
+      --mid:    #3D3D3D;
+      --muted:  #888;
+      --rule:   #D6D1C4;
+      --red:    #B83228;
+      --green:  #1B5E3B;
+      --border: #1A1A1A;
     }
 
     body {
       background: var(--cream);
       color: var(--ink);
       font-family: 'Inter', sans-serif;
-      font-size: 15px;
-      line-height: 1.65;
+      font-size: 16px;
+      line-height: 1.8;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── Page wrapper ── */
     .page {
-      max-width: 900px;
+      max-width: 860px;
       margin: 0 auto;
-      padding: 64px 48px 96px;
+      padding: 72px 52px 100px;
     }
 
     /* ── Masthead ── */
     .masthead {
       border-bottom: 2px solid var(--border);
-      padding-bottom: 32px;
-      margin-bottom: 48px;
+      padding-bottom: 36px;
+      margin-bottom: 52px;
     }
 
-    .masthead-meta {
+    .masthead-top {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
     .masthead-label {
@@ -69,26 +68,64 @@
     .headline {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: clamp(36px, 5vw, 56px);
-      line-height: 1.05;
+      font-size: clamp(32px, 4.5vw, 52px);
+      line-height: 1.08;
       letter-spacing: -0.02em;
       color: var(--ink);
-      max-width: 680px;
-    }
-
-    .headline em {
-      font-style: normal;
-      color: var(--red);
+      max-width: 640px;
+      margin-bottom: 20px;
     }
 
     .subline {
-      margin-top: 16px;
-      font-size: 13px;
+      font-size: 13.5px;
       color: var(--muted);
-      line-height: 1.6;
+      line-height: 1.7;
     }
 
-    .subline strong { color: var(--mid); font-weight: 500; }
+    .subline strong {
+      color: var(--mid);
+      font-weight: 500;
+    }
+
+    /* ── Use cases block ── */
+    .use-cases {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1.5px solid var(--border);
+      margin-bottom: 48px;
+    }
+
+    .use-case {
+      padding: 24px 26px 28px;
+      border-right: 1.5px solid var(--border);
+    }
+
+    .use-case:last-child { border-right: none; }
+
+    .use-case-num {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .use-case-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .use-case-desc {
+      font-size: 13px;
+      color: var(--mid);
+      line-height: 1.65;
+    }
 
     /* ── Stat row ── */
     .stat-row {
@@ -96,12 +133,14 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 0;
       border: 1.5px solid var(--border);
-      margin-bottom: 56px;
+      border-top: none;
+      margin-bottom: 64px;
     }
 
     .stat-card {
-      padding: 24px 28px;
+      padding: 22px 26px;
       border-right: 1.5px solid var(--border);
+      background: var(--paper);
     }
 
     .stat-card:last-child { border-right: none; }
@@ -109,39 +148,40 @@
     .stat-label {
       font-size: 10px;
       font-weight: 600;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .stat-value {
       font-family: 'Syne', sans-serif;
-      font-size: 32px;
+      font-size: 30px;
       font-weight: 800;
       line-height: 1;
       color: var(--ink);
     }
 
-    .stat-value.red { color: var(--red); }
+    .stat-value.red   { color: var(--red); }
     .stat-value.green { color: var(--green); }
 
     .stat-sub {
       margin-top: 6px;
       font-size: 12px;
       color: var(--muted);
+      line-height: 1.5;
     }
 
-    /* ── Sections ── */
+    /* ── Section ── */
     .section {
-      margin-bottom: 52px;
+      margin-bottom: 60px;
     }
 
     .section-header {
       display: flex;
       align-items: baseline;
       gap: 16px;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       padding-bottom: 12px;
       border-bottom: 1px solid var(--rule);
     }
@@ -157,26 +197,42 @@
 
     .section-title {
       font-family: 'Syne', sans-serif;
-      font-size: 22px;
+      font-size: 21px;
       font-weight: 700;
-      line-height: 1.1;
+      line-height: 1.15;
       color: var(--ink);
     }
 
-    /* ── Body copy ── */
-    .body-copy {
-      color: var(--mid);
-      margin-bottom: 20px;
+    /* ── Use case sub-section ── */
+    .uc-block {
+      margin-bottom: 40px;
     }
 
-    .body-copy strong { color: var(--ink); font-weight: 600; }
+    .uc-block:last-child { margin-bottom: 0; }
 
-    /* ── Data table ── */
+    .uc-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .uc-note {
+      font-size: 14px;
+      color: var(--mid);
+      margin-top: 10px;
+      line-height: 1.7;
+    }
+
+    .uc-note strong { color: var(--ink); font-weight: 600; }
+
+    /* ── Tables ── */
     table {
       width: 100%;
       border-collapse: collapse;
-      margin: 20px 0;
-      font-size: 13.5px;
+      font-size: 14px;
     }
 
     thead tr {
@@ -190,278 +246,259 @@
       text-transform: uppercase;
       color: var(--muted);
       text-align: left;
-      padding: 8px 12px 8px 0;
+      padding: 7px 16px 7px 0;
     }
 
     td {
-      padding: 10px 12px 10px 0;
+      padding: 11px 16px 11px 0;
       color: var(--mid);
       border-bottom: 1px solid var(--rule);
-      vertical-align: top;
+      line-height: 1.5;
     }
 
     td:first-child, th:first-child { padding-left: 0; }
-
     td strong { color: var(--ink); font-weight: 600; }
 
-    .badge {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 2px 7px;
-      border-radius: 2px;
-    }
-
-    .badge-red   { background: #FDECEA; color: var(--red); }
-    .badge-green { background: #E6F4EC; color: var(--green); }
-    .badge-gray  { background: #EFEFEF; color: #555; }
-
-    /* ── Numbered item cards ── */
-    .item-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 16px;
-    }
-
-    .item-card {
-      display: grid;
-      grid-template-columns: 32px 1fr;
-      gap: 16px;
-      padding: 18px 20px;
-      border: 1.5px solid var(--border);
-      background: var(--paper);
-    }
-
-    .item-num {
-      font-family: 'Syne', sans-serif;
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--rule);
-      line-height: 1.4;
-    }
-
-    .item-body strong {
-      display: block;
-      font-size: 14px;
+    .zero {
+      color: var(--red);
       font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 4px;
     }
 
-    .item-body p {
-      font-size: 13.5px;
+    /* ── Alert box ── */
+    .alert {
+      border-left: 3px solid var(--red);
+      background: var(--paper);
+      padding: 18px 22px;
+      margin: 24px 0;
+    }
+
+    .alert p {
+      font-size: 15px;
       color: var(--mid);
+      line-height: 1.75;
     }
 
-    /* ── Action block ── */
+    .alert p strong { color: var(--ink); font-weight: 600; }
+
+    /* ── Source table ── */
+    .source-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+
+    .source-table th {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: left;
+      padding: 7px 16px 7px 0;
+      border-bottom: 1.5px solid var(--border);
+    }
+
+    .source-table td {
+      padding: 11px 16px 11px 0;
+      border-bottom: 1px solid var(--rule);
+      color: var(--mid);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .source-table td:first-child, .source-table th:first-child { padding-left: 0; }
+    .source-table td strong { color: var(--ink); font-weight: 600; }
+
+    /* ── Action blocks ── */
     .action-group {
-      margin-bottom: 28px;
+      margin-bottom: 32px;
     }
 
-    .action-group-label {
+    .action-label {
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 10px;
+      margin-bottom: 14px;
     }
 
-    .action-group-label.red   { color: var(--red); }
-    .action-group-label.green { color: var(--green); }
+    .action-label.red   { color: var(--red); }
+    .action-label.black { color: var(--muted); }
 
-    ul.action-list {
-      padding-left: 0;
+    ul.actions {
       list-style: none;
+      padding: 0;
     }
 
-    ul.action-list li {
+    ul.actions li {
       position: relative;
-      padding-left: 18px;
-      font-size: 14px;
+      padding-left: 20px;
+      font-size: 15px;
       color: var(--mid);
-      margin-bottom: 7px;
-      line-height: 1.55;
+      margin-bottom: 12px;
+      line-height: 1.7;
     }
 
-    ul.action-list li::before {
+    ul.actions li::before {
       content: "—";
       position: absolute;
       left: 0;
       color: var(--rule);
-      font-weight: 400;
     }
 
-    ul.action-list li strong { color: var(--ink); font-weight: 600; }
-
-    /* ── Highlight box ── */
-    .highlight-box {
-      border-left: 3px solid var(--red);
-      padding: 16px 20px;
-      background: var(--paper);
-      margin: 20px 0;
-    }
-
-    .highlight-box p {
-      font-size: 14px;
-      color: var(--mid);
-      line-height: 1.6;
-    }
-
-    .highlight-box p strong { color: var(--ink); font-weight: 600; }
+    ul.actions li strong { color: var(--ink); font-weight: 600; }
 
     /* ── Footer ── */
     .footer {
       margin-top: 72px;
-      padding-top: 24px;
+      padding-top: 20px;
       border-top: 1px solid var(--rule);
-      font-size: 12px;
+      font-size: 12.5px;
       color: var(--muted);
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 680px) {
       .page { padding: 40px 24px 72px; }
-      .stat-row { grid-template-columns: 1fr; }
+      .use-cases, .stat-row { grid-template-columns: 1fr; }
+      .use-case  { border-right: none; border-bottom: 1.5px solid var(--border); }
       .stat-card { border-right: none; border-bottom: 1.5px solid var(--border); }
-      .stat-card:last-child { border-bottom: none; }
-      .masthead-meta { flex-direction: column; gap: 4px; }
+      .stat-card:last-child, .use-case:last-child { border-bottom: none; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
+<div class="page">
 
-    <!-- Masthead -->
-    <div class="masthead">
-      <div class="masthead-meta">
-        <span class="masthead-label">Search &amp; AI Visibility Assessment</span>
-        <span class="masthead-date">April 2026</span>
-      </div>
-      <h1 class="headline">WorkOnGrid is <em>invisible</em> to its buyers before the first call.</h1>
-      <p class="subline">
-        <strong>Data sources:</strong> DataForSEO API, Perplexity AI (live prompts), Google Search. &nbsp;·&nbsp;
-        Google Analytics and Search Console were not accessed. Traffic figures are DataForSEO estimates based on keyword rankings and standard CTR models. Actual traffic may differ.
-      </p>
+  <!-- Masthead -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <span class="masthead-label">Search &amp; AI Visibility Data</span>
+      <span class="masthead-date">April 2026</span>
+    </div>
+    <h1 class="headline">Three use cases. Zero mentions when buyers search for them.</h1>
+    <p class="subline">
+      <strong>Tools:</strong> DataForSEO API &nbsp;·&nbsp; Perplexity AI (live prompts) &nbsp;·&nbsp; Google Search
+      &nbsp;&nbsp;
+      Google Analytics and Search Console were not accessed. Traffic figures are DataForSEO estimates.
+    </p>
+  </div>
+
+  <!-- Use cases -->
+  <div class="use-cases">
+    <div class="use-case">
+      <div class="use-case-num">Use Case 01</div>
+      <div class="use-case-title">Smart Meter Operations</div>
+      <div class="use-case-desc">Meter estate monitoring, OCR-based readings, SLA tracking</div>
+    </div>
+    <div class="use-case">
+      <div class="use-case-num">Use Case 02</div>
+      <div class="use-case-title">Transformer Health Monitoring</div>
+      <div class="use-case-desc">Predictive maintenance, failure forecasting at distribution level</div>
+    </div>
+    <div class="use-case">
+      <div class="use-case-num">Use Case 03</div>
+      <div class="use-case-title">Revenue Assurance / AT&amp;C</div>
+      <div class="use-case-desc">Tamper detection, distribution transformer reconciliation</div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-label">Est. Monthly Organic Visits</div>
+      <div class="stat-value">2,660</div>
+      <div class="stat-sub">India (75%) + US (21%)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">LLM Visibility — 5 Buyer Prompts</div>
+      <div class="stat-value red">0 / 5</div>
+      <div class="stat-sub">Tested live on Perplexity</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Use Case Pages Ranking in Search</div>
+      <div class="stat-value red">0 / 3</div>
+      <div class="stat-sub">All three pages have zero keyword rankings</div>
+    </div>
+  </div>
+
+  <!-- Section 1: Search -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-id">1 / Search Data</span>
+      <h2 class="section-title">Where the site ranks — by use case</h2>
     </div>
 
-    <!-- Stat row -->
-    <div class="stat-row">
-      <div class="stat-card">
-        <div class="stat-label">Est. Monthly Organic Visits</div>
-        <div class="stat-value">2,660</div>
-        <div class="stat-sub">India (75%) + US (21%)</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">LLM Visibility Score</div>
-        <div class="stat-value red">0 / 5</div>
-        <div class="stat-sub">Buyer prompts tested in Perplexity</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Reachable Traffic Upside</div>
-        <div class="stat-value green">+4,238</div>
-        <div class="stat-sub">Visits/mo without new content</div>
-      </div>
-    </div>
-
-    <!-- Section 1 -->
-    <div class="section">
-      <div class="section-header">
-        <span class="section-id">1 / Organic Search</span>
-        <h2 class="section-title">Current State</h2>
-      </div>
-
-      <p class="body-copy">
-        The site generates approximately <strong>2,660 estimated organic visits per month</strong> across India and the US.
-      </p>
-
-      <div class="item-list">
-        <div class="item-card">
-          <div class="item-num">IN</div>
-          <div class="item-body">
-            <strong>India — 75% of traffic, almost all branded</strong>
-            <p>Top keywords: "on grid", "ongrid login", "work on grid". These are existing users navigating to the product, not new buyers discovering it.</p>
-          </div>
-        </div>
-        <div class="item-card">
-          <div class="item-num">US</div>
-          <div class="item-body">
-            <strong>US — 21% of traffic, driven entirely by blog content</strong>
-            <p>The homepage and product pages contribute less than 10% of organic traffic. The blog is carrying the site.</p>
-          </div>
-        </div>
-        <div class="item-card">
-          <div class="item-num">!</div>
-          <div class="item-body">
-            <strong>Three use case pages have zero keyword rankings</strong>
-            <p>Transformer Health Monitoring, OCR Meter Reading, and AI-Powered Revenue Assurance are live but invisible in search.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Section 2 -->
-    <div class="section">
-      <div class="section-header">
-        <span class="section-id">2 / SEO Opportunity</span>
-        <h2 class="section-title">Near-Term Traffic Potential</h2>
-      </div>
-
-      <p class="body-copy">
-        <strong>Keywords close to page 1 (positions 11–30):</strong>
-      </p>
-
+    <div class="uc-block">
+      <div class="uc-label">Use Case 01 — Smart Meter Operations</div>
       <table>
         <thead>
           <tr>
             <th>Keyword</th>
             <th>Monthly Searches</th>
             <th>Current Rank</th>
-            <th>Market</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>on grid / ongrid</strong></td>
-            <td>14,800 each</td>
-            <td>15 / 28</td>
-            <td>India</td>
+            <td><strong>smart meters</strong></td>
+            <td>9,900</td>
+            <td>52</td>
           </tr>
           <tr>
-            <td><strong>smart city project</strong></td>
-            <td>3,600</td>
-            <td>30</td>
-            <td>India</td>
+            <td><strong>utility metering</strong></td>
+            <td>590</td>
+            <td>6</td>
           </tr>
           <tr>
             <td><strong>smart meter water</strong></td>
             <td>2,400</td>
             <td>16</td>
-            <td>US</td>
           </tr>
           <tr>
             <td><strong>smart meters water</strong></td>
             <td>2,400</td>
             <td>17</td>
-            <td>US</td>
+          </tr>
+          <tr>
+            <td>Use case page — OCR meter reading</td>
+            <td>—</td>
+            <td class="zero">0 rankings</td>
           </tr>
         </tbody>
       </table>
+    </div>
 
-      <p class="body-copy" style="margin-top: 8px;">Moving these to top 5 = estimated <strong>+2,750 visits/month</strong>.</p>
-
-      <p class="body-copy" style="margin-top: 20px;"><strong>High-value keywords buried deep (positions 52–79):</strong></p>
-
+    <div class="uc-block">
+      <div class="uc-label">Use Case 02 — Transformer Health Monitoring</div>
       <table>
         <thead>
           <tr>
             <th>Keyword</th>
             <th>Monthly Searches</th>
             <th>Current Rank</th>
-            <th>CPC</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Use case page — transformer health monitoring</td>
+            <td>—</td>
+            <td class="zero">0 rankings</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="uc-note">No transformer-specific keywords rank at any position.</p>
+    </div>
+
+    <div class="uc-block">
+      <div class="uc-label">Use Case 03 — Revenue Assurance / AT&amp;C</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Keyword</th>
+            <th>Monthly Searches</th>
+            <th>Current Rank</th>
           </tr>
         </thead>
         <tbody>
@@ -469,157 +506,181 @@
             <td><strong>energy data management</strong></td>
             <td>60,500</td>
             <td>79</td>
-            <td>$10.91</td>
           </tr>
           <tr>
-            <td><strong>smart meters</strong></td>
-            <td>9,900</td>
-            <td>52</td>
-            <td>$2.60</td>
-          </tr>
-          <tr>
-            <td><strong>production scheduling software</strong></td>
-            <td>1,300</td>
-            <td>65</td>
-            <td>$64.19</td>
+            <td>Use case page — AI-powered revenue assurance</td>
+            <td>—</td>
+            <td class="zero">0 rankings</td>
           </tr>
         </tbody>
       </table>
+      <p class="uc-note"><strong>energy data management</strong> is the highest-volume keyword on the site. It is at rank 79 — page 8.</p>
+    </div>
+  </div>
 
-      <p class="body-copy" style="margin-top: 8px;">Moving these to top 10 = estimated <strong>+1,500 visits/month</strong>.</p>
-      <p class="body-copy"><strong>Combined potential:</strong> from ~2,660 to ~6,800 estimated visits/month — without creating new content.</p>
+  <!-- Section 2: AI Visibility -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-id">2 / AI Visibility</span>
+      <h2 class="section-title">What buyers find when they ask an AI</h2>
     </div>
 
-    <!-- Section 3 -->
-    <div class="section">
-      <div class="section-header">
-        <span class="section-id">3 / AI Visibility</span>
-        <h2 class="section-title">Current State</h2>
-      </div>
+    <p style="font-size:15px; color:var(--mid); margin-bottom:28px; line-height:1.75;">
+      Five prompts mapped to WorkOnGrid's use cases were tested live in Perplexity.
+      WorkOnGrid appeared in <strong style="color:var(--red)">0 of 5</strong> responses.
+    </p>
 
-      <p class="body-copy">
-        Five prompts that WorkOnGrid's buyers are likely using in ChatGPT, Perplexity, and Gemini were tested live.
-        WorkOnGrid appeared in <strong>0 of 5 responses</strong>.
-      </p>
-
+    <div class="uc-block">
+      <div class="uc-label">Use Case 01 — Smart Meter Operations</div>
       <table>
         <thead>
+          <tr><th>Prompt</th><th>What Perplexity Returned</th></tr>
+        </thead>
+        <tbody>
           <tr>
-            <th>Prompt</th>
-            <th>Who Was Recommended</th>
+            <td>Best smart meter analytics platform</td>
+            <td>Itron, Grid4C, Kamstrup, VOLTMIND</td>
           </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="uc-block">
+      <div class="uc-label">Use Case 02 — Transformer Health Monitoring</div>
+      <table>
+        <thead>
+          <tr><th>Prompt</th><th>What Perplexity Returned</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Best software for transformer health monitoring</td>
+            <td>IBM Maximo, Schneider EcoStruxure, GE Predix</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="uc-block">
+      <div class="uc-label">Use Case 03 — Revenue Assurance / AT&amp;C</div>
+      <table>
+        <thead>
+          <tr><th>Prompt</th><th>What Perplexity Returned</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Best software to reduce AT&amp;C losses</td>
+            <td>No specific vendor named</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="uc-block">
+      <div class="uc-label">DISCOM Platform — cross use case</div>
+      <table>
+        <thead>
+          <tr><th>Prompt</th><th>What Perplexity Returned</th></tr>
         </thead>
         <tbody>
           <tr>
             <td>Best AI platform for DISCOMs in India</td>
-            <td><span class="badge badge-red">Bidgely — first recommendation</span></td>
-          </tr>
-          <tr>
-            <td>Best software to reduce AT&C losses</td>
-            <td>No specific vendor named</td>
-          </tr>
-          <tr>
-            <td>Best transformer health monitoring software</td>
-            <td>IBM Maximo, Schneider Electric, GE Predix</td>
+            <td><strong>Bidgely</strong> (first), Fluentgrid, C3 AI</td>
           </tr>
           <tr>
             <td>Alternatives to Fluentgrid MDMS</td>
-            <td>Oracle, BCITS, Trilliant</td>
-          </tr>
-          <tr>
-            <td>Best smart meter analytics platform</td>
-            <td>Itron, Grid4C, Kamstrup</td>
+            <td>Oracle MDM, BCITS bSmart, Trilliant</td>
           </tr>
         </tbody>
       </table>
-
-      <div class="highlight-box">
-        <p>
-          When a DISCOM CTO consults an AI assistant before shortlisting vendors,
-          WorkOnGrid is not in the conversation.
-          <strong>A preference is already partially formed by the time they contact anyone — and it is not WorkOnGrid.</strong>
-        </p>
-      </div>
     </div>
 
-    <!-- Section 4 -->
-    <div class="section">
-      <div class="section-header">
-        <span class="section-id">4 / Root Cause</span>
-        <h2 class="section-title">Why the Gap Exists</h2>
-      </div>
-
-      <p class="body-copy">
-        LLMs do not primarily cite company websites. <strong>Over 97% of AI citations come from third-party sources</strong> — review platforms, industry publications, comparison roundups.
+    <div class="alert">
+      <p>
+        A DISCOM CTO searching any of these prompts before shortlisting vendors will not find WorkOnGrid.
+        <strong>The shortlist forms before any vendor contact.</strong>
       </p>
-
-      <p class="body-copy"><strong>WorkOnGrid is listed on Capterra. It is not listed on:</strong></p>
-
-      <div class="item-list">
-        <div class="item-card">
-          <div class="item-num">1</div>
-          <div class="item-body">
-            <strong>Gartner Peer Insights</strong>
-            <p>Where "alternatives to Fluentgrid" queries pull their vendor lists. Oracle, BCITS, and Trilliant appear here. WorkOnGrid does not.</p>
-          </div>
-        </div>
-        <div class="item-card">
-          <div class="item-num">2</div>
-          <div class="item-body">
-            <strong>aimultiple.com and startus-insights.com</strong>
-            <p>Cited for "best smart meter solutions" and "emerging utility tech" queries. These two pages alone supplied competitors across three of the five prompts tested.</p>
-          </div>
-        </div>
-        <div class="item-card">
-          <div class="item-num">3</div>
-          <div class="item-body">
-            <strong>tndindia.com, mercomindia.com, electricalindia.in</strong>
-            <p>The India-specific publications Perplexity cited. Bidgely earned the #1 DISCOM India recommendation because a single article on tndindia.com covered their product launch. That one third-party page was enough.</p>
-          </div>
-        </div>
-      </div>
     </div>
-
-    <!-- Section 5 -->
-    <div class="section">
-      <div class="section-header">
-        <span class="section-id">5 / Action Plan</span>
-        <h2 class="section-title">What Needs to Happen</h2>
-      </div>
-
-      <div class="action-group">
-        <div class="action-group-label red">Immediate — no content creation required</div>
-        <ul class="action-list">
-          <li><strong>Submit to Gartner Peer Insights</strong> — free listing, 2–3 weeks to go live. Directly addresses the highest-impact prompt gap.</li>
-          <li><strong>Get listed on aimultiple.com and startus-insights.com</strong> — smart meter and utility tech roundups. These two pages appear in LLM responses for three of the five buyer queries tested.</li>
-          <li><strong>Pitch product coverage to tndindia.com, mercomindia.com, electricalindia.in</strong> — the exact sources Perplexity already cites for DISCOM India queries.</li>
-        </ul>
-      </div>
-
-      <div class="action-group">
-        <div class="action-group-label">Short Term — content creation required</div>
-        <ul class="action-list">
-          <li><strong>Build a "WorkOnGrid vs Fluentgrid" comparison page</strong> — directly captures the highest-intent competitive displacement query.</li>
-          <li><strong>Consolidate blog content around each use case</strong> — one authoritative guide per use case, structured so LLMs can confidently cite it.</li>
-          <li><strong>Update the energy data management blog post</strong> — 60,500 monthly searches, currently rank 79. One optimisation pass has significant traffic upside.</li>
-        </ul>
-      </div>
-
-      <div class="action-group">
-        <div class="action-group-label">Ongoing</div>
-        <ul class="action-list">
-          <li>Run a 10-prompt LLM audit monthly across ChatGPT, Perplexity, Gemini.</li>
-          <li>Refresh blog content every 4–5 months — content older than this decays in both Google rankings and LLM citations.</li>
-          <li>Track which third-party pages competitors appear in and ensure WorkOnGrid is on those same pages.</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-      This assessment is based on publicly available data and API-sourced keyword data. It does not include access to WorkOnGrid's internal analytics (GA, GSC, CRM). A complete picture would incorporate internal search query data, conversion rates by channel, and pipeline data to connect visibility gaps to revenue impact.
-    </div>
-
   </div>
+
+  <!-- Section 3: Why -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-id">3 / Root Cause</span>
+      <h2 class="section-title">Why WorkOnGrid is absent</h2>
+    </div>
+
+    <p style="font-size:15px; color:var(--mid); line-height:1.75; margin-bottom:20px;">
+      LLMs do not cite company websites. Over 97% of AI citations come from third-party sources —
+      review platforms, industry publications, comparison pages.
+      WorkOnGrid is listed on Capterra. It does not appear on the sources that these queries pull from.
+    </p>
+
+    <table class="source-table">
+      <thead>
+        <tr>
+          <th>Source</th>
+          <th>Why It Matters</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Gartner Peer Insights</strong></td>
+          <td>Where "alternatives to Fluentgrid" queries pull their vendor lists</td>
+        </tr>
+        <tr>
+          <td><strong>aimultiple.com</strong></td>
+          <td>Cited for smart meter and utility tech roundups</td>
+        </tr>
+        <tr>
+          <td><strong>startus-insights.com</strong></td>
+          <td>Cited for emerging utility tech queries</td>
+        </tr>
+        <tr>
+          <td><strong>tndindia.com</strong></td>
+          <td>One article here made Bidgely the top DISCOM India recommendation</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:14px; color:var(--mid); line-height:1.75; margin-top:18px;">
+      Bidgely earned first-position in the DISCOM India query from a single product launch article on tndindia.com.
+      That one page was enough.
+    </p>
+  </div>
+
+  <!-- Section 4: What Changes -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-id">4 / What Changes the Data</span>
+      <h2 class="section-title">Concrete steps, by effort</h2>
+    </div>
+
+    <div class="action-group">
+      <div class="action-label red">No content required</div>
+      <ul class="actions">
+        <li><strong>Submit to Gartner Peer Insights</strong> — free listing, 2–3 weeks to go live. Directly addresses the "alternatives to Fluentgrid" query gap.</li>
+        <li><strong>Get listed on aimultiple.com</strong> — smart meter and utility tech roundups. This source appeared in 3 of 5 prompts tested.</li>
+        <li><strong>Get listed on startus-insights.com</strong> — emerging utility tech list. Cited for DISCOM and smart grid queries.</li>
+        <li><strong>Pitch product coverage to tndindia.com, mercomindia.com, electricalindia.in</strong> — the publications Perplexity already cites for India utility queries.</li>
+      </ul>
+    </div>
+
+    <div class="action-group">
+      <div class="action-label black">Content required</div>
+      <ul class="actions">
+        <li><strong>Build a "WorkOnGrid vs Fluentgrid" comparison page</strong> — captures the competitive displacement query directly.</li>
+        <li><strong>Build a "Fluentgrid alternative" page</strong> — same query, different entry point.</li>
+        <li><strong>Update <code>/blog/data-management-sustainable-energy-practices</code></strong> — 60,500 monthly searches, rank 79. The page exists. One optimisation pass raises traffic for the highest-volume keyword on the site.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    This assessment does not include access to WorkOnGrid's internal analytics (GA, GSC, CRM).
+    A complete picture would incorporate internal search query data, conversion rates by channel,
+    and pipeline data to connect visibility gaps to revenue impact.
+  </div>
+
+</div>
 </body>
 </html>
