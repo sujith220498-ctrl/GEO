@@ -1,4 +1,4 @@
-# WorkOnGrid — Search & AI Visibility Data
+# workongrid.com — Search & AI Visibility
 April 2026
 
 **Tools:** DataForSEO API, Perplexity AI (live prompts), Google Search
