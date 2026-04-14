@@ -97,7 +97,7 @@ def losing_keywords(target, competitor, market, lang="en", limit=200):
     ])
     if not result:
         return [], 0
-    items = result[0].get("items", [])
+    items = result[0].get("items") or []
     total_shared = len(items)
     losing = []
     for item in items:
