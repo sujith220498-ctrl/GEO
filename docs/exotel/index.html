@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exotel — SEO Benchmark, India 2026</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: #0f0f0f;
+      color: #e0e0e0;
+      line-height: 1.6;
+      padding: 0 1rem 5rem;
+    }
+
+    .wrap { max-width: 900px; margin: 0 auto; }
+
+    /* Header */
+    header {
+      padding: 3rem 0 2rem;
+      border-bottom: 1px solid #1e1e1e;
+      margin-bottom: 3rem;
+    }
+    header .label {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 0.6rem;
+    }
+    header h1 { font-size: 1.9rem; font-weight: 600; color: #fff; margin-bottom: 0.3rem; }
+    header .meta { font-size: 0.82rem; color: #444; }
+
+    /* Section layout */
+    section { margin-bottom: 4rem; }
+    .section-title {
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #444;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    /* Narrative */
+    .narrative {
+      background: #131313;
+      border-left: 3px solid #3b82f6;
+      padding: 1.75rem 2rem;
+      border-radius: 0 6px 6px 0;
+    }
+    .narrative p { font-size: 0.92rem; color: #bbb; margin-bottom: 0.9rem; }
+    .narrative p:last-child { margin-bottom: 0; }
+    .questions { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #1e1e1e; }
+    .q-label { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: #444; margin-bottom: 0.9rem; }
+    .question {
+      padding: 0.9rem 1.1rem;
+      background: #171717;
+      border-radius: 5px;
+      margin-bottom: 0.5rem;
+      font-size: 0.88rem;
+      color: #bbb;
+    }
+    .question strong { color: #fff; }
+
+    /* Two-col grid */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #1a1a1a; border: 1px solid #1a1a1a; border-radius: 8px; overflow: hidden; }
+    .two-col .cell { background: #111; padding: 1.25rem 1.5rem; }
+    .two-col .cell h4 { font-size: 0.78rem; color: #555; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem; }
+    .two-col .cell ul { list-style: none; }
+    .two-col .cell ul li { font-size: 0.85rem; color: #bbb; padding: 0.3rem 0; border-bottom: 1px solid #161616; }
+    .two-col .cell ul li:last-child { border-bottom: none; }
+    .two-col .cell ul li span { color: #555; font-size: 0.78rem; margin-left: 0.5rem; }
+
+    /* Industry table */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: #1a1a1a; border: 1px solid #1a1a1a; border-radius: 8px; overflow: hidden; margin-bottom: 0; }
+    .card { background: #111; padding: 1.1rem 1.25rem; }
+    .card .industry { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: #555; margin-bottom: 0.3rem; }
+    .card .client { font-size: 0.9rem; font-weight: 600; color: #fff; margin-bottom: 0.25rem; }
+    .card .usecase { font-size: 0.78rem; color: #666; }
+
+    /* Stat grid */
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: #1a1a1a; border: 1px solid #1a1a1a; border-radius: 8px; overflow: hidden; }
+    .stat { background: #111; padding: 1.25rem 1.5rem; }
+    .stat .val { font-size: 1.55rem; font-weight: 600; color: #fff; line-height: 1.2; margin-bottom: 0.2rem; }
+    .stat .lbl { font-size: 0.68rem; color: #444; text-transform: uppercase; letter-spacing: 0.09em; }
+    .stat.hi .val { color: #3b82f6; }
+
+    /* Tables */
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    thead tr { border-bottom: 1px solid #1e1e1e; }
+    thead th { text-align: left; padding: 0.55rem 0.75rem; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: #444; font-weight: 500; }
+    thead th.r { text-align: right; }
+    tbody tr { border-bottom: 1px solid #161616; }
+    tbody tr:hover { background: #141414; }
+    tbody tr.hl { background: #111c30; }
+    tbody tr.hl:hover { background: #142040; }
+    tbody td { padding: 0.6rem 0.75rem; color: #bbb; }
+    tbody td.r { text-align: right; color: #888; font-variant-numeric: tabular-nums; }
+    tbody td strong { color: #fff; }
+    .badge { display: inline-block; font-size: 0.62rem; padding: 0.1rem 0.35rem; border-radius: 3px; background: #1a2e50; color: #60a5fa; margin-left: 0.4rem; letter-spacing: 0.05em; vertical-align: middle; }
+
+    /* Competitor loss */
+    .comp-block { background: #111; border: 1px solid #1a1a1a; border-radius: 8px; margin-bottom: 1rem; overflow: hidden; }
+    .comp-header { padding: 0.8rem 1.2rem; background: #141414; border-bottom: 1px solid #1a1a1a; display: flex; justify-content: space-between; align-items: center; }
+    .comp-header .cn { font-size: 0.85rem; font-weight: 600; color: #fff; }
+    .comp-header .cc { font-size: 0.72rem; color: #ef4444; background: #1c0e0e; padding: 0.2rem 0.55rem; border-radius: 4px; }
+
+    /* Callout */
+    .callout { background: #111; border: 1px solid #1a1a1a; border-radius: 8px; padding: 1.5rem 1.75rem; }
+    .callout .item { padding: 0.85rem 0; border-bottom: 1px solid #181818; font-size: 0.88rem; color: #bbb; }
+    .callout .item:last-child { border-bottom: none; padding-bottom: 0; }
+    .callout .item strong { color: #fff; display: block; margin-bottom: 0.2rem; }
+
+    footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid #181818; font-size: 0.72rem; color: #333; }
+
+    @media (max-width: 600px) {
+      .two-col { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="label">SEO Benchmark</div>
+    <h1>Exotel</h1>
+    <div class="meta">India &nbsp;·&nbsp; April 2026 &nbsp;·&nbsp; Data: DataForSEO</div>
+  </header>
+
+  <!-- Intro -->
+  <section>
+    <div class="section-title">What We Did</div>
+    <div class="narrative">
+      <p>We mapped Exotel's SEO position in India — use cases, buyer profiles, and how the business competes in the market.</p>
+      <p>We then pulled organic and paid traffic data for Exotel and five direct competitors: MyOperator, Tata Tele, Plivo, Ozonetel, and Knowlarity. For each competitor, we identified the specific keywords where they rank higher than Exotel today.</p>
+      <p>Everything below is what we found.</p>
+    </div>
+  </section>
+
+  <!-- What Exotel Sells -->
+  <section>
+    <div class="section-title">What Exotel Sells</div>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Products</h4>
+        <ul>
+          <li>Cloud Call Center</li>
+          <li>Smart IVR</li>
+          <li>Auto Dialer</li>
+          <li>WhatsApp Business API</li>
+          <li>Business Phone System</li>
+          <li>AI Voicebots &amp; Chatbots</li>
+          <li>Conversation Intelligence</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Use Cases</h4>
+        <ul>
+          <li>Number Masking <span>marketplace privacy</span></li>
+          <li>Missed Call Solution <span>lead capture</span></li>
+          <li>COD Verification <span>e-commerce</span></li>
+          <li>Toll-Free Numbers <span>national presence</span></li>
+          <li>Click-to-Call <span>CRM integration</span></li>
+          <li>Debt Collection AI <span>NBFC / lending</span></li>
+          <li>Delivery Tracking <span>logistics</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Industries + Clients -->
+  <section>
+    <div class="section-title">Industries They Serve</div>
+    <div class="card-grid">
+      <div class="card"><div class="industry">E-commerce</div><div class="client">Swiggy</div><div class="usecase">Number masking, COD verification, IVR</div></div>
+      <div class="card"><div class="industry">Logistics</div><div class="client">Shiprocket</div><div class="usecase">IVR + SMS for delivery tracking</div></div>
+      <div class="card"><div class="industry">Financial Services</div><div class="client">Zerodha</div><div class="usecase">Remote cloud call center, compliance recording</div></div>
+      <div class="card"><div class="industry">Insurance</div><div class="client">Future Generali</div><div class="usecase">AI voicebot for sales conversion</div></div>
+      <div class="card"><div class="industry">Lending / NBFC</div><div class="client">Piramal Finance</div><div class="usecase">Conversational AI for customer engagement</div></div>
+      <div class="card"><div class="industry">Matrimony</div><div class="client">Shaadi.com</div><div class="usecase">Cloud contact center, high-volume inbound</div></div>
+      <div class="card"><div class="industry">Real Estate</div><div class="client">ANAROCK</div><div class="usecase">Parallel ringing for lead response speed</div></div>
+      <div class="card"><div class="industry">Automotive</div><div class="client">JSW MG Motor India</div><div class="usecase">Centralized contact center, 400+ agents</div></div>
+      <div class="card"><div class="industry">Travel &amp; Transport</div><div class="client">Ola</div><div class="usecase">Number masking between drivers and riders</div></div>
+      <div class="card"><div class="industry">Job Marketplace</div><div class="client">Babajob</div><div class="usecase">Missed call services, phone interviews at scale</div></div>
+    </div>
+  </section>
+
+  <!-- Buyers -->
+  <section>
+    <div class="section-title">Who Buys</div>
+    <div class="two-col">
+      <div class="cell">
+        <h4>Operational Buyer</h4>
+        <ul>
+          <li>Head of Customer Support</li>
+          <li>VP Customer Support</li>
+          <li>Head of Operations / COO</li>
+          <li>Contact Center Manager</li>
+          <li>Product Manager</li>
+        </ul>
+      </div>
+      <div class="cell">
+        <h4>Strategic / Sign-off Buyer</h4>
+        <ul>
+          <li>CTO / VP Engineering</li>
+          <li>CMO</li>
+          <li>CFO</li>
+          <li>Chief Digital Transformation Officer</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Domain Overview -->
+  <section>
+    <div class="section-title">Domain Overview — India</div>
+    <div class="stat-grid">
+      <div class="stat hi"><div class="val">1,935</div><div class="lbl">Organic Keywords</div></div>
+      <div class="stat hi"><div class="val">135,727</div><div class="lbl">Organic ETV / mo</div></div>
+      <div class="stat"><div class="val">625</div><div class="lbl">Top-10 Keywords</div></div>
+      <div class="stat"><div class="val">5</div><div class="lbl">Paid Keywords</div></div>
+    </div>
+    <p style="font-size:0.75rem; color:#444; margin-top:0.75rem;">Only pure-play cloud telephony player in India running paid search.</p>
+  </section>
+
+  <!-- Top Pages -->
+  <section>
+    <div class="section-title">Top 30 Pages by Organic Traffic</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Page</th><th class="r">ETV</th><th class="r">Keywords</th><th class="r">Top-10</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>01</td><td>/toll-free-numbers/</td><td class="r">63,607</td><td class="r">148</td><td class="r">106</td></tr>
+          <tr><td>02</td><td>/ (homepage)</td><td class="r">8,045</td><td class="r">261</td><td class="r">6</td></tr>
+          <tr><td>03</td><td>my.exotel.com</td><td class="r">6,791</td><td class="r">5</td><td class="r">5</td></tr>
+          <tr><td>04</td><td>Support: transactional vs promotional calls</td><td class="r">6,246</td><td class="r">16</td><td class="r">16</td></tr>
+          <tr><td>05</td><td>/blog/phone-numbers-options-india/</td><td class="r">4,865</td><td class="r">142</td><td class="r">31</td></tr>
+          <tr><td>06</td><td>/blog/140-160-calling-regulations/</td><td class="r">4,040</td><td class="r">13</td><td class="r">13</td></tr>
+          <tr><td>07</td><td>/products/whatsapp-business-api/</td><td class="r">3,227</td><td class="r">5</td><td class="r">3</td></tr>
+          <tr><td>08</td><td>/bulk-sms-service-providers/</td><td class="r">2,683</td><td class="r">41</td><td class="r">22</td></tr>
+          <tr><td>09</td><td>/blog/customer-interaction-management-software/</td><td class="r">2,427</td><td class="r">2</td><td class="r">1</td></tr>
+          <tr><td>10</td><td>/use-cases/missed-call-service-provider/</td><td class="r">2,419</td><td class="r">24</td><td class="r">12</td></tr>
+          <tr><td>11</td><td>/blog/ivr-numbers/</td><td class="r">2,159</td><td class="r">13</td><td class="r">11</td></tr>
+          <tr><td>12</td><td>/products/smart-ivr/</td><td class="r">2,107</td><td class="r">32</td><td class="r">22</td></tr>
+          <tr><td>13</td><td>/blog/call-forwarding-vs-call-transfer/</td><td class="r">2,035</td><td class="r">47</td><td class="r">29</td></tr>
+          <tr><td>14</td><td>/blog/customer-satisfaction-quotes/</td><td class="r">1,660</td><td class="r">39</td><td class="r">28</td></tr>
+          <tr><td>15</td><td>/automated-phone-calls/</td><td class="r">1,416</td><td class="r">28</td><td class="r">11</td></tr>
+          <tr><td>16</td><td>/glossary/call-time-or-talk-time/</td><td class="r">1,236</td><td class="r">14</td><td class="r">8</td></tr>
+          <tr><td>17</td><td>/products/auto-dialer/</td><td class="r">1,178</td><td class="r">24</td><td class="r">15</td></tr>
+          <tr><td>18</td><td>/virtual-phone-number/</td><td class="r">1,131</td><td class="r">68</td><td class="r">22</td></tr>
+          <tr><td>19</td><td>/products/cloud-contact-center-solution/</td><td class="r">1,064</td><td class="r">10</td><td class="r">9</td></tr>
+          <tr><td>20</td><td>/glossary/business-process-outsourcing/</td><td class="r">1,008</td><td class="r">58</td><td class="r">0</td></tr>
+          <tr><td>21</td><td>/glossary/voice-assistant/</td><td class="r">979</td><td class="r">3</td><td class="r">1</td></tr>
+          <tr><td>22</td><td>/use-cases/cloud-call-center-software/</td><td class="r">824</td><td class="r">12</td><td class="r">10</td></tr>
+          <tr><td>23</td><td>docs.exotel.com (CRM agent toolbar)</td><td class="r">788</td><td class="r">1</td><td class="r">1</td></tr>
+          <tr><td>24</td><td>/uae/en/virtual-phone-number/</td><td class="r">732</td><td class="r">19</td><td class="r">6</td></tr>
+          <tr><td>25</td><td>/blog/phone-numbers-india/ (UTM variant)</td><td class="r">526</td><td class="r">30</td><td class="r">6</td></tr>
+          <tr><td>26</td><td>/blog/reduce-long-call-handle-time/</td><td class="r">517</td><td class="r">2</td><td class="r">2</td></tr>
+          <tr><td>27</td><td>/products/whatsapp-chatbot/</td><td class="r">479</td><td class="r">11</td><td class="r">8</td></tr>
+          <tr><td>28</td><td>/use-cases/number-masking/</td><td class="r">476</td><td class="r">9</td><td class="r">8</td></tr>
+          <tr><td>29</td><td>/careers/</td><td class="r">470</td><td class="r">48</td><td class="r">2</td></tr>
+          <tr><td>30</td><td>Support: SMS sender ID prefixes</td><td class="r">442</td><td class="r">19</td><td class="r">5</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Competitor Overview -->
+  <section>
+    <div class="section-title">Competitor Overview — Organic vs Paid (India)</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Domain</th><th class="r">Org Keywords</th><th class="r">Org ETV</th><th class="r">Top-10</th><th class="r">Paid KWs</th><th class="r">Paid ETV</th></tr>
+        </thead>
+        <tbody>
+          <tr class="hl"><td><strong>exotel.com</strong> <span class="badge">target</span></td><td class="r">1,935</td><td class="r">135,727</td><td class="r">625</td><td class="r">5</td><td class="r">1,913</td></tr>
+          <tr><td>myoperator.com</td><td class="r">1,214</td><td class="r">98,790</td><td class="r">409</td><td class="r">0</td><td class="r">0</td></tr>
+          <tr><td>tatatelebusiness.com</td><td class="r">1,895</td><td class="r">77,770</td><td class="r">423</td><td class="r">0</td><td class="r">0</td></tr>
+          <tr><td>plivo.com</td><td class="r">1,251</td><td class="r">22,480</td><td class="r">270</td><td class="r">0</td><td class="r">0</td></tr>
+          <tr><td>ozonetel.com</td><td class="r">663</td><td class="r">17,702</td><td class="r">81</td><td class="r">0</td><td class="r">0</td></tr>
+          <tr><td>knowlarity.com</td><td class="r">417</td><td class="r">16,746</td><td class="r">135</td><td class="r">0</td><td class="r">0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.75rem; color:#333; margin-top:0.75rem;">freshworks.com and airtel.in excluded — numbers reflect their full domain, not just the telephony product.</p>
+  </section>
+
+  <!-- Losing Keywords -->
+  <section>
+    <div class="section-title">Keywords Exotel Is Losing to Competitors</div>
+
+    <div class="comp-block">
+      <div class="comp-header"><span class="cn">vs MyOperator</span><span class="cc">85 keywords lost (of 200 shared)</span></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Keyword</th><th class="r">Volume</th><th class="r">Exotel</th><th class="r">MyOperator</th></tr></thead>
+          <tbody>
+            <tr><td>toll-free number for free</td><td class="r">33,100</td><td class="r">26</td><td class="r">1</td></tr>
+            <tr><td>toll free line</td><td class="r">33,100</td><td class="r">20</td><td class="r">2</td></tr>
+            <tr><td>toll-free telephone number</td><td class="r">33,100</td><td class="r">39</td><td class="r">4</td></tr>
+            <tr><td>full form of IVR</td><td class="r">6,600</td><td class="r">27</td><td class="r">3</td></tr>
+            <tr><td>1-800 number</td><td class="r">5,400</td><td class="r">28</td><td class="r">2</td></tr>
+            <tr><td>ivr calling</td><td class="r">2,400</td><td class="r">7</td><td class="r">3</td></tr>
+            <tr><td>telephone number for customer service</td><td class="r">1,900</td><td class="r">6</td><td class="r">1</td></tr>
+            <tr><td>company ka number</td><td class="r">2,400</td><td class="r">21</td><td class="r">1</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="comp-block">
+      <div class="comp-header"><span class="cn">vs Tata Tele</span><span class="cc">51 keywords lost (of 200 shared)</span></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Keyword</th><th class="r">Volume</th><th class="r">Exotel</th><th class="r">Tata Tele</th></tr></thead>
+          <tbody>
+            <tr><td>telecalling</td><td class="r">8,100</td><td class="r">44</td><td class="r">38</td></tr>
+            <tr><td>virtual telephone numbers</td><td class="r">3,600</td><td class="r">7</td><td class="r">6</td></tr>
+            <tr><td>Indian virtual numbers</td><td class="r">1,600</td><td class="r">15</td><td class="r">4</td></tr>
+            <tr><td>free toll free number India</td><td class="r">1,600</td><td class="r">9</td><td class="r">6</td></tr>
+            <tr><td>India toll free numbers</td><td class="r">1,600</td><td class="r">74</td><td class="r">8</td></tr>
+            <tr><td>tele CRM</td><td class="r">1,300</td><td class="r">78</td><td class="r">9</td></tr>
+            <tr><td>business telephone number</td><td class="r">1,000</td><td class="r">88</td><td class="r">14</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="comp-block">
+      <div class="comp-header"><span class="cn">vs Ozonetel</span><span class="cc">35 keywords lost (of 147 shared)</span></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Keyword</th><th class="r">Volume</th><th class="r">Exotel</th><th class="r">Ozonetel</th></tr></thead>
+          <tbody>
+            <tr><td>direct inward dialing</td><td class="r">165,000</td><td class="r">33</td><td class="r">28</td></tr>
+            <tr><td>agent toolbar</td><td class="r">8,100</td><td class="r">3</td><td class="r">1</td></tr>
+            <tr><td>inbound outbound calling</td><td class="r">1,000</td><td class="r">74</td><td class="r">14</td></tr>
+            <tr><td>VoIP providers in India</td><td class="r">320</td><td class="r">46</td><td class="r">6</td></tr>
+            <tr><td>VoIP provider in India</td><td class="r">320</td><td class="r">36</td><td class="r">10</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="comp-block">
+      <div class="comp-header"><span class="cn">vs Knowlarity</span><span class="cc">35 keywords lost (of 200 shared)</span></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Keyword</th><th class="r">Volume</th><th class="r">Exotel</th><th class="r">Knowlarity</th></tr></thead>
+          <tbody>
+            <tr><td>toll-free telephone number</td><td class="r">33,100</td><td class="r">39</td><td class="r">10</td></tr>
+            <tr><td>toll free number means</td><td class="r">1,000</td><td class="r">16</td><td class="r">10</td></tr>
+            <tr><td>toll free number definition</td><td class="r">1,000</td><td class="r">17</td><td class="r">14</td></tr>
+            <tr><td>missed call alert</td><td class="r">590</td><td class="r">7</td><td class="r">6</td></tr>
+            <tr><td>promotional SMS</td><td class="r">390</td><td class="r">59</td><td class="r">15</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Data source: DataForSEO &nbsp;·&nbsp; India market &nbsp;·&nbsp; April 2026
+  </footer>
+
+</div>
+</body>
+</html>

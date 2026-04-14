@@ -5,6 +5,22 @@
 
 ---
 
+## Narrative
+
+Exotel leads its peer group on every organic metric in India. More keywords, more traffic, and the only player running paid search.
+
+But the traffic is concentrated. One page — /toll-free-numbers/ — drives 47% of all organic ETV. The homepage ranks for 261 keywords but converts only 6 into top-10 positions.
+
+Competitors are not winning on product pages. They are winning on the informational layer — the educational content that sits above the buying decision. MyOperator ranks #1 for "toll-free number for free." Knowlarity ranks #10 for "toll-free telephone number." Exotel has the product authority. The surrounding content is thinner.
+
+Three questions this raises for the CMO:
+
+1. **One page, half the traffic.** What happens to growth if /toll-free-numbers/ loses rank?
+2. **The homepage is trying to rank for too much.** 261 keywords, 6 in top-10. Is it being asked to do too much?
+3. **Competitors are owning the informational layer.** Exotel has the product. Does it have the content depth to defend category authority?
+
+---
+
 ## Step 1 — Domain Overview
 
 | Metric | Value |
