@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deepsolv — Search + GEO Audit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:  #F4F1EA;
+      --paper:  #FDFAF4;
+      --ink:    #141414;
+      --mid:    #3D3D3D;
+      --muted:  #888;
+      --rule:   #D6D1C4;
+      --red:    #B83228;
+      --green:  #1B5E3B;
+      --dark:   #181816;
+      --border: #1A1A1A;
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 52px 100px;
+    }
+
+    /* ── Top Nav ── */
+    .topnav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 28px 0 28px;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 60px;
+    }
+
+    .topnav-logo {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+    }
+
+    .topnav-breadcrumb {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .topnav-breadcrumb span {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* ── Badge ── */
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink);
+      border: 1.5px solid var(--border);
+      padding: 4px 10px;
+      margin-bottom: 24px;
+    }
+
+    /* ── Section block ── */
+    .block {
+      padding: 72px 0 64px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .block:last-child {
+      border-bottom: none;
+    }
+
+    .block-headline {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      max-width: 600px;
+      margin-bottom: 20px;
+    }
+
+    .block-sub {
+      font-size: 15px;
+      color: var(--mid);
+      line-height: 1.75;
+      max-width: 560px;
+      margin-bottom: 44px;
+    }
+
+    .block-sub strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* ── Hero metric cards ── */
+    .hero-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .metric-card {
+      padding: 32px 30px 36px;
+      border: 1.5px solid var(--border);
+    }
+
+    .metric-card.light {
+      background: var(--paper);
+    }
+
+    .metric-card.dark {
+      background: var(--dark);
+    }
+
+    .metric-card-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .metric-card.light .metric-card-label { color: var(--muted); }
+    .metric-card.dark  .metric-card-label { color: #666; }
+
+    .metric-card-label .sep { margin: 0 6px; opacity: 0.4; }
+
+    .metric-number {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 56px;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+
+    .metric-card.light .metric-number { color: var(--red); }
+    .metric-card.dark  .metric-number { color: #fff; }
+
+    .metric-desc {
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .metric-card.light .metric-desc { color: var(--mid); }
+    .metric-card.dark  .metric-desc { color: #888; }
+
+    .metric-desc strong {
+      font-weight: 600;
+    }
+    .metric-card.light .metric-desc strong { color: var(--ink); }
+    .metric-card.dark  .metric-desc strong { color: #ccc; }
+
+    /* ── Two-col content ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 44px;
+    }
+
+    .col-track {
+      padding: 28px;
+      background: var(--paper);
+      border: 1.5px solid var(--border);
+    }
+
+    .track-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .track-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .kw-group-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+      margin-top: 20px;
+    }
+
+    .kw-group-label:first-of-type { margin-top: 0; }
+
+    .kw-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--rule);
+      gap: 12px;
+    }
+
+    .kw-row:last-child { border-bottom: none; }
+
+    .kw-text {
+      font-size: 13px;
+      color: var(--mid);
+      flex: 1;
+      font-style: italic;
+    }
+
+    .kw-vol {
+      font-size: 12px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .rank-badge {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      padding: 2px 8px;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+
+    .rank-bad  { background: #F5E6E5; color: var(--red); }
+    .rank-mid  { background: #FDF3E3; color: #9A5F00; }
+    .rank-good { background: #E5EFE8; color: var(--green); }
+    .rank-none { background: #EBEBEB; color: #888; }
+
+    .prompt-row {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .prompt-row:last-child { border-bottom: none; }
+
+    .prompt-text {
+      font-size: 13px;
+      font-style: italic;
+      color: var(--mid);
+      margin-bottom: 5px;
+    }
+
+    .prompt-result {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .prompt-result strong { color: var(--ink); font-weight: 600; }
+    .prompt-absent { color: var(--red); font-weight: 600; font-size: 12px; }
+
+    /* ── Source table ── */
+    .source-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 28px;
+    }
+
+    .source-table th {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: left;
+      padding: 8px 16px 8px 0;
+      border-bottom: 1.5px solid var(--border);
+    }
+
+    .source-table td {
+      padding: 12px 16px 12px 0;
+      border-bottom: 1px solid var(--rule);
+      color: var(--mid);
+      line-height: 1.6;
+      font-size: 14px;
+      vertical-align: top;
+    }
+
+    .source-table td:first-child,
+    .source-table th:first-child { padding-left: 0; }
+
+    .source-table td strong { color: var(--ink); font-weight: 600; }
+
+    .absent-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: #F5E6E5;
+      color: var(--red);
+      padding: 2px 7px;
+      border-radius: 2px;
+    }
+
+    /* ── Competitor benchmark ── */
+    .bench-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin-top: 28px;
+    }
+
+    .bench-table th {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: left;
+      padding: 8px 0;
+      border-bottom: 1.5px solid var(--border);
+    }
+
+    .bench-table th:not(:first-child) { text-align: right; }
+
+    .bench-table td {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--rule);
+      color: var(--mid);
+      font-size: 14px;
+    }
+
+    .bench-table td:not(:first-child) { text-align: right; }
+    .bench-table td strong { color: var(--ink); font-weight: 600; }
+    .bench-table .highlight td { background: transparent; }
+    .bench-table .highlight td strong { color: var(--ink); }
+    .bench-table .dim { color: var(--muted) !important; font-size: 13px; }
+
+    .bench-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    .bench-bar {
+      height: 6px;
+      background: var(--rule);
+      border-radius: 3px;
+      width: 80px;
+      overflow: hidden;
+    }
+
+    .bench-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--ink);
+    }
+
+    .bench-bar-fill.red { background: var(--red); }
+
+    /* ── Alert ── */
+    .alert {
+      border-left: 3px solid var(--red);
+      background: var(--paper);
+      padding: 20px 24px;
+      margin-top: 32px;
+    }
+
+    .alert p {
+      font-size: 15px;
+      color: var(--mid);
+      line-height: 1.8;
+    }
+
+    .alert p strong { color: var(--ink); font-weight: 600; }
+
+    /* ── Action blocks ── */
+    .action-group {
+      margin-bottom: 36px;
+    }
+
+    .action-group:last-child { margin-bottom: 0; }
+
+    .action-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .action-label.urgent { color: var(--red); }
+    .action-label.normal { color: var(--muted); }
+
+    ul.actions {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul.actions li {
+      position: relative;
+      padding-left: 22px;
+      font-size: 15px;
+      color: var(--mid);
+      margin-bottom: 14px;
+      line-height: 1.75;
+    }
+
+    ul.actions li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: var(--rule);
+    }
+
+    ul.actions li strong { color: var(--ink); font-weight: 600; }
+
+    /* ── Closing statement ── */
+    .closing {
+      background: var(--dark);
+      padding: 48px 44px;
+      margin-top: 64px;
+    }
+
+    .closing p {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(18px, 2.2vw, 24px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.55;
+      letter-spacing: -0.01em;
+    }
+
+    .closing p span { color: #666; }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 44px;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule);
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.75;
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      .page { padding: 0 24px 72px; }
+      .hero-cards, .two-col { grid-template-columns: 1fr; }
+      .topnav-breadcrumb { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Top nav -->
+  <nav class="topnav">
+    <div class="topnav-logo">recurr</div>
+    <div class="topnav-breadcrumb">
+      Search + GEO Audit &nbsp;·&nbsp; <span>Deepsolv</span> &nbsp;·&nbsp; April 2026
+    </div>
+  </nav>
+
+  <!-- ─────────────────────────────────────────
+       BLOCK 1 — The Opportunity
+  ───────────────────────────────────────── -->
+  <div class="block">
+    <div class="badge">The Opportunity</div>
+    <h1 class="block-headline">Search and GEO for Deepsolv</h1>
+    <p class="block-sub">
+      D2C founders are searching Google and asking ChatGPT which Instagram automation tool to use.
+      Right now, they find <strong>ManyChat, Spur, and Inrō</strong>. Deepsolv is not in the conversation.
+    </p>
+
+    <div class="hero-cards">
+      <div class="metric-card light">
+        <div class="metric-card-label">Google <span class="sep">·</span> India Organic Presence</div>
+        <div class="metric-number">~65</div>
+        <div class="metric-desc">
+          Estimated monthly visits from search. <strong>1 keyword</strong> in the top 10.
+          142 blog posts — none ranking for a commercial query.
+        </div>
+      </div>
+      <div class="metric-card dark">
+        <div class="metric-card-label">AI Answers <span class="sep">·</span> GEO Visibility</div>
+        <div class="metric-number">0 / 6</div>
+        <div class="metric-desc">
+          Deepsolv does not appear when buyers ask ChatGPT, Perplexity, or Gemini about Instagram automation tools.
+          <strong>Competitors do.</strong> This audit shows where the gap is and what closes it.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────
+       BLOCK 2 — Keywords + Prompts
+  ───────────────────────────────────────── -->
+  <div class="block">
+    <div class="badge">Keywords + Prompts</div>
+    <h2 class="block-headline">What we're going after.</h2>
+    <p class="block-sub">
+      Two channels in parallel. Search drives traffic. AI answers build trust.
+      Content built for one feeds the other.
+    </p>
+
+    <div class="two-col">
+      <!-- Track 1: Search -->
+      <div class="col-track">
+        <div class="track-label">Track 1</div>
+        <div class="track-title">Search — Google</div>
+
+        <div class="kw-group-label">Top pages ranking now</div>
+
+        <div class="kw-row">
+          <span class="kw-text">"caption for instagram followers"</span>
+          <span class="kw-vol">14,800/mo</span>
+          <span class="rank-badge rank-bad">Rank 38</span>
+        </div>
+        <div class="kw-row">
+          <span class="kw-text">"automation instagram"</span>
+          <span class="kw-vol">2,400/mo</span>
+          <span class="rank-badge rank-bad">Rank 42</span>
+        </div>
+        <div class="kw-row">
+          <span class="kw-text">"instagram automation tool"</span>
+          <span class="kw-vol">1,600/mo</span>
+          <span class="rank-badge rank-bad">Rank 42</span>
+        </div>
+        <div class="kw-row">
+          <span class="kw-text">"ig algorithm 2025"</span>
+          <span class="kw-vol">1,300/mo</span>
+          <span class="rank-badge rank-bad">Rank 41</span>
+        </div>
+        <div class="kw-row">
+          <span class="kw-text">"how to schedule reels on instagram"</span>
+          <span class="kw-vol">880/mo</span>
+          <span class="rank-badge rank-bad">Rank 42</span>
+        </div>
+
+        <div class="kw-group-label" style="margin-top:24px;">Target keywords — not yet ranking</div>
+
+        <div class="kw-row">
+          <span class="kw-text">"best instagram dm automation tool"</span>
+          <span class="kw-vol">—</span>
+          <span class="rank-badge rank-none">Not ranking</span>
+        </div>
+        <div class="kw-row">
+          <span class="kw-text">"manychat alternative india"</span>
+          <span class="kw-vol">—</span>
+          <span class="rank-badge rank-none">Not ranking</span>
+        </div>
+        <div class="kw-row">
+          <span class="kw-text">"instagram comment automation ecommerce"</span>
+          <span class="kw-vol">—</span>
+          <span class="rank-badge rank-none">Not ranking</span>
+        </div>
+      </div>
+
+      <!-- Track 2: AI Prompts -->
+      <div class="col-track">
+        <div class="track-label">Track 2</div>
+        <div class="track-title">AI Prompts — ChatGPT, Gemini, Claude</div>
+
+        <div class="kw-group-label">Category prompts — buying stage</div>
+
+        <div class="prompt-row">
+          <div class="prompt-text">"best AI tool for Instagram comment and DM automation for ecommerce"</div>
+          <div class="prompt-result">TailorTalk, Inrō, ManyChat, Chatfuel &nbsp;<span class="prompt-absent">Deepsolv absent</span></div>
+        </div>
+        <div class="prompt-row">
+          <div class="prompt-text">"best social media automation platform for D2C brands India"</div>
+          <div class="prompt-result">Spur, Later, Hootsuite, SocialBee &nbsp;<span class="prompt-absent">Deepsolv absent</span></div>
+        </div>
+
+        <div class="kw-group-label" style="margin-top:16px;">Competitive prompts — highest intent</div>
+
+        <div class="prompt-row">
+          <div class="prompt-text">"alternatives to ManyChat for Instagram automation ecommerce"</div>
+          <div class="prompt-result">Spur, Inrō, LinkDM, InstantDM, Tidio &nbsp;<span class="prompt-absent">Deepsolv absent</span></div>
+        </div>
+        <div class="prompt-row">
+          <div class="prompt-text">"best Instagram chatbot for lead generation ecommerce India"</div>
+          <div class="prompt-result">ManyChat, TailorTalk, UChat, Chatfuel &nbsp;<span class="prompt-absent">Deepsolv absent</span></div>
+        </div>
+
+        <div class="kw-group-label" style="margin-top:16px;">Problem prompts — pre-decision stage</div>
+
+        <div class="prompt-row">
+          <div class="prompt-text">"how to automate Instagram DM replies for online store"</div>
+          <div class="prompt-result">ManyChat, Trengo, InstantDM, ReplyRush &nbsp;<span class="prompt-absent">Deepsolv absent</span></div>
+        </div>
+        <div class="prompt-row">
+          <div class="prompt-text">"deepsolv review" — brand search</div>
+          <div class="prompt-result">Only deepsolv.ai pages returned. <strong>No third-party reviews exist.</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────
+       BLOCK 3 — Competitive Benchmark
+  ───────────────────────────────────────── -->
+  <div class="block">
+    <div class="badge">Search Benchmark</div>
+    <h2 class="block-headline">The gap in numbers.</h2>
+    <p class="block-sub">
+      Organic search data for India. Deepsolv vs the tools that appear in every LLM response above.
+    </p>
+
+    <table class="bench-table">
+      <thead>
+        <tr>
+          <th>Domain</th>
+          <th>Organic Keywords</th>
+          <th>Monthly Visits (est.)</th>
+          <th>Top-10 Rankings</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight">
+          <td><strong>deepsolv.ai</strong></td>
+          <td style="text-align:right;"><strong style="color:var(--red);">24</strong></td>
+          <td style="text-align:right;">
+            <div class="bench-bar-wrap">
+              <span style="color:var(--red);font-weight:600;">65</span>
+              <div class="bench-bar"><div class="bench-bar-fill red" style="width:0.02%;"></div></div>
+            </div>
+          </td>
+          <td style="text-align:right;"><strong style="color:var(--red);">1</strong></td>
+        </tr>
+        <tr>
+          <td>manychat.com</td>
+          <td style="text-align:right;">3,624</td>
+          <td style="text-align:right;">
+            <div class="bench-bar-wrap">
+              <span>343,862</span>
+              <div class="bench-bar"><div class="bench-bar-fill" style="width:100%;"></div></div>
+            </div>
+          </td>
+          <td style="text-align:right;">582</td>
+        </tr>
+        <tr>
+          <td>tidio.com</td>
+          <td style="text-align:right;">2,350</td>
+          <td style="text-align:right;">
+            <div class="bench-bar-wrap">
+              <span>340,569</span>
+              <div class="bench-bar"><div class="bench-bar-fill" style="width:99%;"></div></div>
+            </div>
+          </td>
+          <td style="text-align:right;">188</td>
+        </tr>
+        <tr>
+          <td>emplifi.io</td>
+          <td style="text-align:right;">1,273</td>
+          <td style="text-align:right;">
+            <div class="bench-bar-wrap">
+              <span>25,386</span>
+              <div class="bench-bar"><div class="bench-bar-fill" style="width:7%;"></div></div>
+            </div>
+          </td>
+          <td style="text-align:right;">154</td>
+        </tr>
+        <tr>
+          <td>gorgias.com</td>
+          <td style="text-align:right;">977</td>
+          <td style="text-align:right;">
+            <div class="bench-bar-wrap">
+              <span>20,821</span>
+              <div class="bench-bar"><div class="bench-bar-fill" style="width:6%;"></div></div>
+            </div>
+          </td>
+          <td style="text-align:right;">108</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert">
+      <p>
+        Deepsolv and ManyChat rank for the same keyword — <strong>"automation instagram" (2,400 searches/month)</strong>.
+        ManyChat is rank 1. Deepsolv is rank 42. That is 41 positions of lost trust before any conversation starts.
+      </p>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────
+       BLOCK 4 — Root Cause
+  ───────────────────────────────────────── -->
+  <div class="block">
+    <div class="badge">Root Cause</div>
+    <h2 class="block-headline">Why Deepsolv is absent.</h2>
+    <p class="block-sub">
+      LLMs do not cite company websites. Over 90% of AI citations come from third-party sources —
+      review platforms, roundup articles, comparison pages.
+      Deepsolv is not present on any of them.
+    </p>
+
+    <table class="source-table">
+      <thead>
+        <tr>
+          <th>Source</th>
+          <th>Why It Matters</th>
+          <th>Deepsolv Listed?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>G2</strong></td>
+          <td>Most cited review platform across all 6 prompts tested. Every competitor has a listing.</td>
+          <td><span class="absent-tag">Not listed</span></td>
+        </tr>
+        <tr>
+          <td><strong>Capterra</strong></td>
+          <td>Second-most cited source for SaaS tool comparisons. Free to list.</td>
+          <td><span class="absent-tag">Not listed</span></td>
+        </tr>
+        <tr>
+          <td><strong>Product Hunt</strong></td>
+          <td>Cited in AI tool discovery queries. Establishes early third-party signal.</td>
+          <td><span class="absent-tag">Not listed</span></td>
+        </tr>
+        <tr>
+          <td><strong>chatimize.com</strong></td>
+          <td>Appears in "best Instagram chatbot" queries. Lists ManyChat, UChat, Botpress — not Deepsolv.</td>
+          <td><span class="absent-tag">Not listed</span></td>
+        </tr>
+        <tr>
+          <td><strong>instantdm.com</strong></td>
+          <td>"Top 15 ManyChat alternatives" article. 15 tools listed. Deepsolv is not one of them.</td>
+          <td><span class="absent-tag">Not listed</span></td>
+        </tr>
+        <tr>
+          <td><strong>inro.social</strong></td>
+          <td>Owns "ManyChat competitors 2026" roundup. First result for competitive queries.</td>
+          <td><span class="absent-tag">Not listed</span></td>
+        </tr>
+        <tr>
+          <td><strong>spurnow.com</strong></td>
+          <td>India-first ManyChat alternative. Has claimed the "D2C India automation" position.</td>
+          <td>Competitor</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:14px; color:var(--mid); line-height:1.8; margin-top:20px;">
+      The tools winning these prompts — Spur, Inrō, InstantDM — are not larger or more established than Deepsolv.
+      They are present in the places LLMs look. That is the entire difference.
+    </p>
+  </div>
+
+  <!-- ─────────────────────────────────────────
+       BLOCK 5 — What Changes
+  ───────────────────────────────────────── -->
+  <div class="block">
+    <div class="badge">What Changes the Data</div>
+    <h2 class="block-headline">Concrete steps, by effort.</h2>
+    <p class="block-sub">
+      Two phases. The first requires no content creation. The second builds the pages
+      that compound in both search and AI visibility over time.
+    </p>
+
+    <div class="action-group">
+      <div class="action-label urgent">This week — no content required</div>
+      <ul class="actions">
+        <li><strong>List on G2</strong> — free, takes a week to go live. Single highest-impact action. Every competitor is there. Deepsolv is not.</li>
+        <li><strong>List on Capterra</strong> — free listing. Cited for "software alternatives" queries across every category.</li>
+        <li><strong>Launch on Product Hunt</strong> — free, establishes a third-party presence LLMs can cite.</li>
+        <li><strong>Submit to chatimize.com and instantdm.com roundups</strong> — both appeared in multiple prompts tested. Reach out for inclusion.</li>
+      </ul>
+    </div>
+
+    <div class="action-group">
+      <div class="action-label normal">Next 4 weeks — three pages that compound</div>
+      <ul class="actions">
+        <li>
+          <strong>"Deepsolv vs ManyChat" comparison page</strong> — this is the single highest-converting query type in SaaS. A buyer who is already evaluating ManyChat and searching for alternatives is ready to switch. Own the answer.
+        </li>
+        <li>
+          <strong>"Best ManyChat alternative for India" landing page</strong> — Spur currently owns this angle. Deepsolv has a stronger product for D2C Instagram automation. The page doesn't exist. Build it.
+        </li>
+        <li>
+          <strong>Fix the existing automation tools blog post</strong> — <em>/blog/top-7-instagram-automation-tools</em> ranks at position 42 for "instagram automation tool" (1,600 searches/month). Deepsolv is not positioned as the primary recommendation in its own roundup article. This is fixable in a day.
+        </li>
+      </ul>
+    </div>
+
+    <div class="action-group">
+      <div class="action-label normal">Ongoing — monthly cadence</div>
+      <ul class="actions">
+        <li>Run 10-prompt GEO audit monthly across Perplexity, ChatGPT, Gemini.</li>
+        <li>Track: visibility %, which tools dominate each prompt, which third-party URLs are cited.</li>
+        <li>One new comparison or alternatives page per month.</li>
+        <li>One new review platform submission per month.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ─────────────────────────────────────────
+       Closing statement
+  ───────────────────────────────────────── -->
+  <div class="closing">
+    <p>
+      When a D2C founder asks ChatGPT which Instagram automation tool to use,
+      Deepsolv is not in the answer.
+      <span>That conversation is happening before your sales team gets on a call.
+      The trust gap exists before the first human interaction.</span>
+    </p>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>recurr.co &nbsp;·&nbsp; Search + GEO for B2B SaaS</span>
+    <span>Data: DataForSEO API · Google Search · Web search proxies for LLM citations. Internal analytics not accessed. Traffic figures are estimates.</span>
+  </div>
+
+</div>
+</body>
+</html>
