@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Visibility Audit: quadcse.com</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #1a1a1a;
+    background: #f9f8f6;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 72px 80px;
+  }
+
+  /* Header */
+  .report-header {
+    border-bottom: 3px solid #1a1a1a;
+    padding-bottom: 32px;
+    margin-bottom: 48px;
+  }
+
+  .report-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  .report-header .date {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Section headings */
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: 56px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e8e8e8;
+    letter-spacing: -0.3px;
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-top: 28px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #444;
+  }
+
+  p {
+    margin-bottom: 16px;
+    color: #2a2a2a;
+  }
+
+  /* Executive summary callout */
+  .exec-summary {
+    background: #f0ede8;
+    border-left: 4px solid #1a1a1a;
+    padding: 24px 28px;
+    margin: 24px 0 32px;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .exec-summary p {
+    margin-bottom: 12px;
+    font-size: 15px;
+  }
+
+  .exec-summary p:last-child { margin-bottom: 0; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0 28px;
+    font-size: 14px;
+  }
+
+  thead tr {
+    background: #1a1a1a;
+    color: #ffffff;
+  }
+
+  thead th {
+    padding: 12px 14px;
+    text-align: left;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  tbody tr:nth-child(even) { background: #f7f6f4; }
+  tbody tr:nth-child(odd) { background: #ffffff; }
+
+  tbody td {
+    padding: 11px 14px;
+    border-bottom: 1px solid #e8e8e8;
+    vertical-align: top;
+  }
+
+  tbody tr:hover { background: #eef2f7; }
+
+  /* Highlight row for Quad AI */
+  .highlight-row td {
+    font-weight: 700;
+    background: #fff8e6 !important;
+  }
+
+  /* Visibility overview table */
+  .visibility-table thead tr { background: #2c3e50; }
+
+  /* Lists */
+  ul, ol {
+    margin: 12px 0 20px 24px;
+  }
+
+  li {
+    margin-bottom: 8px;
+    color: #2a2a2a;
+  }
+
+  li strong { color: #1a1a1a; }
+
+  /* Blockquote / callout */
+  blockquote {
+    border-left: 3px solid #c0c0c0;
+    padding: 4px 20px;
+    margin: 16px 0;
+    color: #555;
+    font-style: italic;
+  }
+
+  /* Finding blocks */
+  .finding {
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-left: 4px solid #2c3e50;
+    padding: 20px 24px;
+    margin: 20px 0;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .finding p { margin-bottom: 0; font-size: 15px; }
+  .finding .finding-title {
+    font-weight: 700;
+    margin-bottom: 6px;
+    font-size: 15px;
+    color: #1a1a1a;
+  }
+
+  /* Action items */
+  .action-section {
+    background: #f9f8f6;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .action-section h3 {
+    margin-top: 0;
+    color: #1a1a1a;
+  }
+
+  .action-section ul { margin-top: 12px; }
+
+  /* Immediate actions — red tint */
+  .action-immediate { border-top: 4px solid #c0392b; }
+  .action-immediate h3 { color: #c0392b; }
+
+  /* Short-term — amber */
+  .action-short { border-top: 4px solid #d68910; }
+  .action-short h3 { color: #d68910; }
+
+  /* Medium-term — green */
+  .action-medium { border-top: 4px solid #1e8449; }
+  .action-medium h3 { color: #1e8449; }
+
+  /* Bold within paragraphs */
+  strong { font-weight: 700; }
+
+  /* Divider */
+  hr {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 48px 0;
+  }
+
+  /* Footer */
+  .report-footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 2px solid #e0e0e0;
+    font-size: 13px;
+    color: #888;
+    text-align: center;
+  }
+
+  @media print {
+    body { background: white; }
+    .page { padding: 40px; }
+    .finding, .action-section { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="report-header">
+    <h1>AI Visibility Audit: quadcse.com</h1>
+    <div class="date">Date: April 27, 2026</div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <h2>Executive Summary</h2>
+
+  <div class="exec-summary">
+    <p>Quad AI has strong organic search presence — ranking first on Google for several purchase-intent queries — but near-zero visibility on AI-powered search surfaces. When prospective students ask AI engines which colleges to consider in Quad AI's category, Quad AI is consistently absent. Competitors including Scaler School of Technology, NHCE, RVCE, and Bosscoder appear in its place.</p>
+    <p>The most urgent finding is not absence — it is an active misrepresentation. When students search branded queries like "is Quad AI good for BTech," AI engines surface a specific data point: 62% placement achievement rate and ₹3.04 LPA average salary at the Patna campus. This number is live in AI responses today and directly contradicts Quad AI's 100% placement positioning.</p>
+    <p>The underlying cause of both issues is the same: Quad AI has no independent editorial coverage. AI engines pull from aggregators (Shiksha, Collegedunia), student forums (Reddit), and YouTube — not from the brand's own website. Building that third-party coverage layer is the only path to AI visibility.</p>
+  </div>
+
+  <p><strong>AI Visibility Overview:</strong></p>
+
+  <table class="visibility-table">
+    <thead>
+      <tr>
+        <th>Platform</th>
+        <th>Purchase-intent queries</th>
+        <th>Brand queries</th>
+        <th>Niche product queries</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Google Search (organic)</td>
+        <td>4/4</td>
+        <td>4/4</td>
+        <td>3/3</td>
+      </tr>
+      <tr>
+        <td>Google AI Overview</td>
+        <td>0/4</td>
+        <td>1/2</td>
+        <td>0/3</td>
+      </tr>
+      <tr>
+        <td>Google AI Mode</td>
+        <td>0/4</td>
+        <td>2/2</td>
+        <td>0/1</td>
+      </tr>
+      <tr>
+        <td>ChatGPT</td>
+        <td>1/4</td>
+        <td>3/3</td>
+        <td>1/3</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Quad AI's SEO is working. Its AI visibility is not.</strong></p>
+
+  <hr>
+
+  <!-- BRAND CONTEXT -->
+  <h2>Brand Context</h2>
+
+  <p>Quad AI (quadcse.com) is a private, industry-focused education institution founded in 2024, operating campuses in Bengaluru (HSR Layout), Mangaluru, and Patna, with Mumbai announced. It offers a 4-year B.Tech in Computer Science (AI &amp; ML), a 3-year BBA, a 2-year MBA, and a 3-year BCA — all positioned around practical skills, MAANG mentorship, and career outcomes.</p>
+
+  <p>Key differentiators: curriculum curated by IIT and IIM alumni, 100+ mentors from Google, Amazon, and Microsoft, a mandatory 6-month paid internship, a ₹10 lakh startup seed fund, and a stated 100% placement assistance model. Quad AI is not a UGC-regulated institution. Degrees are awarded through Medhavi Skills University.</p>
+
+  <p><strong>Online presence:</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Platform</th>
+        <th>Listed?</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Wikipedia</td><td>No</td><td>Not present</td></tr>
+      <tr><td>Crunchbase</td><td>No</td><td>No page found</td></tr>
+      <tr><td>Shiksha</td><td>Yes</td><td>Full listing, Patna campus</td></tr>
+      <tr><td>Collegedunia</td><td>Yes</td><td>Full listing, Bengaluru campus</td></tr>
+      <tr><td>LinkedIn</td><td>Yes</td><td>Company page active</td></tr>
+      <tr><td>Google Business Profile</td><td>Yes</td><td>Bengaluru campus, 4.5★ (136 reviews)</td></tr>
+      <tr><td>Reddit</td><td>Yes</td><td>Two threads on r/indiancolleges — mixed to negative</td></tr>
+      <tr><td>YouTube</td><td>Yes</td><td>Multiple third-party videos covering the institution</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Disambiguation note:</strong> AI engines occasionally confuse Medhavi Skills University (the actual partner) with "Madhavi Skills University" — a small but consistent error observed across multiple queries. The degree structure is also a live objection that AI surfaces unprompted to prospective students on branded queries.</p>
+
+  <hr>
+
+  <!-- PURCHASE-INTENT QUERIES -->
+  <h2>Purchase-Intent Queries</h2>
+
+  <p><em>We tested four queries that a prospective student ready to apply would search — including queries about BTech AI/ML colleges in Bangalore, alternatives to traditional engineering colleges with startup funding, colleges with MAANG mentors and industry-led curriculum, and industry-focused BTech programs in Patna.</em></p>
+
+  <p>Quad AI did not appear in Google's AI Overview on any of the four queries. On ChatGPT, it appeared once — ranked fourth, labeled as a "budget/emerging option." On all four queries, Quad AI ranked first in Google's standard organic results. AI engines bypassed that first-place ranking entirely and pulled from aggregator and editorial content instead.</p>
+
+  <p>The competitors AI consistently recommended: Scaler School of Technology, RVCE, PES University, NHCE, Bosscoder School of Technology, Newton School of Technology, IIT Patna, and NIT Patna.</p>
+
+  <p>A recurring pattern across all four queries: AI engines pushed back on "100% placement guarantee" language, framing it as unverifiable marketing. ChatGPT stated explicitly that no college can legally guarantee placements. This characterization surfaces before a prospective student has spoken to anyone at Quad AI.</p>
+
+  <p>On the Patna query, Google's AI Overview recommended Apponix Technologies — a digital marketing training institute — above Quad AI, which held the top two organic positions. The gap between organic ranking and AI recommendation is at its sharpest here.</p>
+
+  <hr>
+
+  <!-- BRAND QUERIES -->
+  <h2>Brand Queries</h2>
+
+  <p><em>We tested three queries where a prospective student searches for Quad AI directly — a review query, a quality and trust query, and a domain knowledge check.</em></p>
+
+  <p>Quad AI is recognized across all three platforms on branded queries. But the nature of that recognition matters.</p>
+
+  <p><strong>Google AI Mode</strong> gave the most detailed and positive description — covering the IIT/IIM curriculum, MAANG mentor access, startup fund, fee structure across campuses, and a 4.5 JD rating from 136 Patna reviews. This is the most favorable AI surface for Quad AI.</p>
+
+  <p><strong>Google AI Overview</strong> recognized Quad AI on the quality query, noting the IIT/IIM curriculum and MAANG mentors, while qualifying it as a newer institution without an established placement track record.</p>
+
+  <p><strong>ChatGPT</strong> gave a structured review with the following ratings: Skill development 4/5, Brand value 2/5, Placements (proven) 2/5, Campus life 2/5, Risk level: High. Its primary sources were two Reddit threads from r/indiancolleges. Direct quotes it surfaced from Reddit: <em>"It's like a coaching institute, not a college life"</em> and <em>"Worth it for job focus, not for chill college experience."</em> Its final verdict: <em>"Quad AI is a high-risk, skill-focused startup college. It's not a safe choice compared to established engineering colleges."</em></p>
+
+  <p>One finding stands out above all others in this section: <strong>Google AI Mode is surfacing a specific placement data point — 62% achievement rate and ₹3.04 LPA average package at the Patna campus.</strong> This number appears in AI responses when students ask whether Quad AI is worth joining. Whether accurate or not, it is live in AI engines today and is the single most damaging active signal in this audit.</p>
+
+  <hr>
+
+  <!-- NICHE PRODUCT QUERIES -->
+  <h2>Niche Product Queries</h2>
+
+  <p><em>We tested three queries describing Quad AI's specific product attributes without naming the brand — a query matching the IIT/IIM curriculum combined with startup seed funding, a query about AI-integrated management programs with a compulsory startup launch module, and a geo-specific query for AI/ML engineering colleges in HSR Layout, Bangalore.</em></p>
+
+  <p>Quad AI appeared once across the three — ranked second on ChatGPT for the IIT/IIM curriculum and seed fund query, described as "very aligned with your requirement on paper, but newer and less proven."</p>
+
+  <p>On the startup launch module query, ChatGPT told users that a mandatory startup launch combined with AI integration is <em>"still rare in India"</em> — then named four other institutions. Quad AI explicitly offers a Compulsory Startup Launch Module on its management program. AI does not know this because no third party has written about it.</p>
+
+  <p>On the HSR Layout geo query, Quad AI was absent from all three platforms despite its Bengaluru campus being located at that address. Google AI Mode surfaced five other colleges with full pricing, ratings, and admission timelines. Quad AI's non-VTU affiliation places it outside the traditional engineering college frameworks that AI draws from for geographic queries.</p>
+
+  <hr>
+
+  <!-- COMPETITOR VISIBILITY -->
+  <h2>Competitor Visibility</h2>
+
+  <p><em>How often each brand appeared across all queries and all platforms. Higher = more AI authority in this space.</em></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Brand</th>
+        <th>Google AI Overview</th>
+        <th>Google AI Mode</th>
+        <th>ChatGPT</th>
+        <th>Total mentions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="highlight-row">
+        <td><strong>Quad AI</strong></td>
+        <td>1</td>
+        <td>2</td>
+        <td>5</td>
+        <td><strong>8</strong></td>
+      </tr>
+      <tr>
+        <td>Scaler School of Technology</td>
+        <td>3</td>
+        <td>0</td>
+        <td>4</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td>RVCE</td>
+        <td>3</td>
+        <td>1</td>
+        <td>1</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>NHCE</td>
+        <td>2</td>
+        <td>1</td>
+        <td>2</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>Bosscoder School of Technology</td>
+        <td>2</td>
+        <td>0</td>
+        <td>2</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>BMS College of Engineering</td>
+        <td>1</td>
+        <td>1</td>
+        <td>2</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>Dayananda Sagar</td>
+        <td>1</td>
+        <td>1</td>
+        <td>2</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>PES University</td>
+        <td>2</td>
+        <td>0</td>
+        <td>1</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>Newton School of Technology</td>
+        <td>2</td>
+        <td>0</td>
+        <td>1</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>IIT Patna</td>
+        <td>1</td>
+        <td>0</td>
+        <td>2</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>Futurense School of AI</td>
+        <td>1</td>
+        <td>0</td>
+        <td>1</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>NxtWave / NIAT</td>
+        <td>0</td>
+        <td>0</td>
+        <td>2</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>ATLAS SkillTech</td>
+        <td>0</td>
+        <td>0</td>
+        <td>1</td>
+        <td>1</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Scaler School of Technology is the dominant competitor in the new-age college category. Its content ecosystem — blog posts, YouTube presence, aggregator listings — is what Google AI Overview cites. It appears at the top of ChatGPT's recommendations on every relevant query. It is Quad AI's primary benchmark.</p>
+
+  <hr>
+
+  <!-- CITATION SOURCES -->
+  <h2>Citation Sources</h2>
+
+  <p><em>Domains that AI engines cited as sources when answering queries in Quad AI's space. These are the "trusted voices" that AI relies on — getting featured on these sites directly increases AI visibility.</em></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Domain</th>
+        <th>Times cited</th>
+        <th>Type</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>shiksha.com</td>
+        <td>5</td>
+        <td>Education aggregator</td>
+        <td>Move beyond directory listing — pursue editorial features and "top colleges" inclusions</td>
+      </tr>
+      <tr>
+        <td>collegedunia.com</td>
+        <td>4</td>
+        <td>Education aggregator</td>
+        <td>Same as Shiksha — push for editorial coverage, not just the listing</td>
+      </tr>
+      <tr>
+        <td>reddit.com/r/indiancolleges</td>
+        <td>3</td>
+        <td>Student forum</td>
+        <td>Active reputation issue — ChatGPT's primary trust signal for Quad AI</td>
+      </tr>
+      <tr>
+        <td>YouTube (multiple channels)</td>
+        <td>3</td>
+        <td>Video review</td>
+        <td>High leverage — AI Mode cites YouTube; Vedantu College Connect and Btv Studies already cover Quad AI</td>
+      </tr>
+      <tr>
+        <td>scaler.com</td>
+        <td>3</td>
+        <td>Competitor content</td>
+        <td>Benchmark — study their content structure for what AI accepts</td>
+      </tr>
+      <tr>
+        <td>collegedekho.com</td>
+        <td>2</td>
+        <td>Education aggregator</td>
+        <td>Get listed and pursue editorial features</td>
+      </tr>
+      <tr>
+        <td>startupindia.gov.in</td>
+        <td>2</td>
+        <td>Government</td>
+        <td>Quad AI's DPIIT recognition should be more prominently cited in listings</td>
+      </tr>
+      <tr>
+        <td>iimb.ac.in / nsrcel</td>
+        <td>2</td>
+        <td>Incubator</td>
+        <td>Signals what AI looks for: funded, documented incubation — not claimed funding</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Shiksha and Collegedunia are the two highest-leverage targets. Both already list Quad AI. Neither includes Quad AI in editorial rankings — which is where AI picks up recommendations.</p>
+
+  <hr>
+
+  <!-- KEY FINDINGS -->
+  <h2>Key Findings</h2>
+
+  <div class="finding">
+    <div class="finding-title">1. Quad AI's organic search ranking and its AI visibility are completely disconnected.</div>
+    <p>Quad AI ranks first on Google's standard search results for several high-intent queries. On those exact same queries, Google's AI Overview recommends competitors. This is not an SEO problem — it is a citation problem. AI engines do not read organic rankings. They pull from editorial features, aggregator inclusions, and third-party coverage.</p>
+  </div>
+
+  <div class="finding">
+    <div class="finding-title">2. A specific, damaging placement figure is live in AI responses right now.</div>
+    <p>When students ask whether Quad AI is worth joining, Google AI Mode tells them placements at the Patna campus ran at 62% with a ₹3.04 LPA average package. This number — likely sourced from an aggregator's placement data section — is appearing before students speak to anyone at Quad AI. It is the most urgent issue in this audit.</p>
+  </div>
+
+  <div class="finding">
+    <div class="finding-title">3. Reddit is the dominant third-party voice shaping ChatGPT's view of Quad AI.</div>
+    <p>Two threads on r/indiancolleges are being used as the primary source for ChatGPT's characterization of the brand. Both lean negative. There is no editorial coverage, verified alumni case study, or press mention that gives ChatGPT a counter-signal. Reddit wins by default.</p>
+  </div>
+
+  <div class="finding">
+    <div class="finding-title">4. Two of Quad AI's most specific differentiators are invisible to AI.</div>
+    <p>The ₹10 lakh startup seed fund and the Compulsory Startup Launch Module are features no direct competitor can clearly claim. Neither appears in AI responses on relevant queries. RVCE's smaller ₹5 lakh fund gets cited by AI because it has third-party documentation. Quad AI's ₹10 lakh fund does not.</p>
+  </div>
+
+  <div class="finding">
+    <div class="finding-title">5. The degree structure question surfaces unprompted on every branded query.</div>
+    <p>On every branded search, AI engines raise the Medhavi Skills University affiliation and note the degree may carry less weight than VTU-affiliated institutions. This objection is being placed in front of prospective students before they reach admissions. A proactive explanation reduces the friction.</p>
+  </div>
+
+  <div class="finding">
+    <div class="finding-title">6. Quad AI is absent from geo-specific queries in its own location.</div>
+    <p>A search for AI/ML engineering colleges in HSR Layout returns five other colleges — with ratings, fees, and admission timelines — and no mention of Quad AI. Its non-VTU status excludes it from the traditional college indexing frameworks AI uses for geographic queries.</p>
+  </div>
+
+  <hr>
+
+  <!-- RECOMMENDED ACTIONS -->
+  <h2>Recommended Actions</h2>
+
+  <div class="action-section action-immediate">
+    <h3>Immediate (this month)</h3>
+    <ul>
+      <li><strong>Address the 62% / ₹3.04 LPA placement data point.</strong> Find where this number originated — most likely Shiksha or Collegedunia's placement data section. If it is inaccurate, submit a correction to both platforms with supporting documentation. If any placements have occurred with better outcomes, publish a named case study on the website — company name, role, salary — and share it with both aggregators directly. One documented placement with a real number shifts the signal AI pulls from.</li>
+      <li><strong>Respond to the two Reddit threads AI is citing.</strong> Encourage current students or alumni to post substantive responses on the r/indiancolleges threads. Not marketing language — specific details: what the internship process looked like, which companies visited, what the startup fund application process involves. ChatGPT reads at the thread level. More detailed, honest responses dilute the current negative framing.</li>
+      <li><strong>Complete and optimize all three campus Google Business Profiles.</strong> The Bengaluru GBP exists but did not surface in the HSR Layout geo query. Ensure Bengaluru, Patna, and Mangaluru all have complete profiles with correct category tags (educational institution, engineering college), accurate hours, updated photos, and regular posts. This is the fastest path to Google AI Mode visibility for location-based queries.</li>
+    </ul>
+  </div>
+
+  <div class="action-section action-short">
+    <h3>Short-term (next 1–3 months)</h3>
+    <ul>
+      <li><strong>Get editorial features on Shiksha and Collegedunia — beyond the directory listing.</strong> Both platforms include Quad AI in their directories. Neither includes it in editorial rankings ("top industry-focused colleges in Bangalore," "best BTech AI/ML colleges 2026"). These editorial placements are what Google AI Overview cites. Contact both platforms' content teams directly — they accept pitches for editorial inclusions.</li>
+      <li><strong>Get the startup fund and startup launch module named in third-party content.</strong> The Compulsory Startup Launch Module is a genuine differentiator that AI cannot find because no external source has named it. One education blogger interview, one YouTube video, or one CollegeDekho article that specifically names this feature is enough to seed it into AI responses. Target education YouTubers who already cover Quad AI — Vedantu College Connect and Btv Studies have done so.</li>
+      <li><strong>Add verified placement data to aggregator profiles.</strong> Shiksha and Collegedunia both have placement data sections. These feed directly into AI responses. Even preliminary data — number of students placed, top recruiters by name, one or two salary data points — is better than the vacuum currently being filled by the 62% figure.</li>
+      <li><strong>Publish a plain-language degree explainer on the site.</strong> The Medhavi Skills University question comes up on every AI surface. A one-paragraph "About our degree" section — what the degree is, what it qualifies for, what the affiliation structure means — gives AI engines something accurate to cite instead of hedging. Keep it factual and specific.</li>
+    </ul>
+  </div>
+
+  <div class="action-section action-medium">
+    <h3>Medium-term (3–6 months)</h3>
+    <ul>
+      <li><strong>Build a public alumni case study pipeline.</strong> No proven placement history is the root cause of the "high-risk" characterization across every AI platform. One placed student with a public LinkedIn post naming their employer, role, and salary — picked up by any education platform — becomes a citation. Target 5–10 placed students, support them in posting publicly, and share those posts with Shiksha and Collegedunia for their placement coverage.</li>
+      <li><strong>Get one press mention in a named education publication.</strong> Education Times, CollegeDekho's editorial team, or a regional outlet covering new-age colleges in Bangalore. One named mention in a publication changes how AI systems treat the brand — from "institution that exists" to "institution that has been written about." This is the threshold that shifts the default characterization.</li>
+      <li><strong>Create a Crunchbase profile.</strong> A Crunchbase page costs nothing and signals organizational legitimacy to AI systems. It is the fastest entity establishment step available and closes a visible gap in the brand's third-party footprint.</li>
+    </ul>
+  </div>
+
+  <div class="report-footer">
+    AI Visibility Audit · quadcse.com · April 2026
+  </div>
+
+</div>
+</body>
+</html>
